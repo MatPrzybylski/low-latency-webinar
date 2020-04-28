@@ -14,9 +14,9 @@ public class ListPresizingBenchmarkRunner {
     public static void main(String[] args) throws Exception {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss-SS");
         Options opt = new OptionsBuilder()
-                .include(InliningBenchmark.class.getSimpleName())
+                .include(ListPresizingBenchmark.class.getSimpleName())
                 .resultFormat(ResultFormatType.TEXT)
-                .result("benchmark-result/" + LocalDateTime.now().format(formatter) + ".txt")
+                .result("code/benchmark-result/" + LocalDateTime.now().format(formatter) + ".txt")
                 .build();
 
         new Runner(opt).run();

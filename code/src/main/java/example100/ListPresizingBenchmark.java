@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-@Fork(value = 2, warmups = 3)
+@Fork(value = 1)
 @Warmup(iterations = 3, time = 1)
 @Measurement(iterations = 5, time = 2)
 public class ListPresizingBenchmark {
@@ -29,40 +29,38 @@ public class ListPresizingBenchmark {
         this.presizedArrayList = new ArrayList<>(capacity);
         this.normalIntArrayList = new IntArrayList();
         this.presizedIntArrayList = new IntArrayList(capacity, 0);
-        for (int i = 0; i < capacity; i++) {
-            normalArrayList.add(i);
-            normalIntArrayList.addInt(i);
-            presizedArrayList.add(i);
-            presizedIntArrayList.addInt(i);
-        }
     }
 
     @Benchmark
     public void testAddWithoutPresizingToArrayList(Blackhole bh) {
         for (int i = 0; i < capacity; i++) {
-            bh.consume(normalArrayList.get(i));
+            normalArrayList.add(i);
         }
+        bh.consume(normalArrayList);
     }
 
     @Benchmark
     public void testAddWithoutPresizingToIntArrayList(Blackhole bh) {
         for (int i = 0; i < capacity; i++) {
-            bh.consume(normalIntArrayList.get(i));
+            normalIntArrayList.addInt(i);
         }
+        bh.consume(normalIntArrayList);
     }
 
-   @Benchmark
+    @Benchmark
     public void testAddWithPresizingToArrayList(Blackhole bh) {
         for (int i = 0; i < capacity; i++) {
-            bh.consume(presizedArrayList.get(i));
+            presizedArrayList.add(i);
         }
+        bh.consume(presizedArrayList);
     }
 
     @Benchmark
     public void testAddWithPresizingToIntArrayList(Blackhole bh) {
         for (int i = 0; i < capacity; i++) {
-            bh.consume(presizedIntArrayList.get(i));
+            presizedIntArrayList.addInt(i);
         }
+        bh.consume(presizedIntArrayList);
     }
 
 }
