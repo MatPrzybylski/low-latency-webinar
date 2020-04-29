@@ -27,8 +27,13 @@ public class InliningSimpleMain {
             mapTwo.put(i, list.size());
         }
 
+        //dead code elimination avoidance
         System.out.println(mapOne);
         System.out.println(mapTwo);
 
     }
 }
+
+
+//VM args: -XX:+PrintCompilation
+//VM args: -XX:+UnlockDiagnosticVMOptions -XX:+PrintInlining
